@@ -1,9 +1,24 @@
 const express = require('express');
+require('dotenv').config();
 const app = express();
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
+const credentials = require('./middleware/credentials');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const verifyJWT = require("./middleware/verifyJWT")
+const mongoose = require('mongoose')
+const connectDB = require('./config/dbConn');
+
+connectDB()
+
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+app.use(credentials);
+
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -25,6 +40,7 @@ app.use('/employees', require('./routes/api/employees'));
 app.use((req,res) => {
     res.status(404).sendFile(path.join(__dirname, "views", "404.html"))
 })
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+mongoose.connection.once('open', () => {
+    console.log("connected to mongoDB")
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });

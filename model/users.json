@@ -1,1 +1,1 @@
-[{"username":"david","password":"$2b$10$dqey3O8yNSCB1IyB44t.1uGopEVF/Br9IKhYwy4HxHubnJWrirrte","refreshToken":""}]
+[{"username":"david","roles":{"User":2001,"Editor":1984,"Admin":5150},"password":"$2b$10$i2NYjAnfTpJiiKlLywLz/u7eUyjVS1mvxSojJ4ugEG7R0pbRK3tlO","refreshToken":""}]
